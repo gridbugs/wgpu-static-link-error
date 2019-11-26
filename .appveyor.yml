@@ -6,18 +6,41 @@ environment:
   matrix:
     - CRT_LINK: dynamic
       MODE: debug
+      ABI: msvc
     - CRT_LINK: static
       MODE: debug
+      ABI: msvc
+    - CRT_LINK: dynamic
+      MODE: debug
+      ABI: gnu
+    - CRT_LINK: static
+      MODE: debug
+      ABI: gnu
     - CRT_LINK: dynamic
       MODE: release
+      ABI: msvc
     - CRT_LINK: static
       MODE: release
+      ABI: msvc
+    - CRT_LINK: dynamic
+      MODE: debug
+      ABI: gnu
+    - CRT_LINK: static
+      MODE: debug
+      ABI: gnu
+    - CRT_LINK: dynamic
+      MODE: release
+      ABI: gnu
+    - CRT_LINK: static
+      MODE: release
+      ABI: gnu
+
 
 install:
   - cmd: >-
       appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
 
-      rustup-init -yv --default-toolchain stable --default-host x86_64-pc-windows-msvc
+      rustup-init -yv --default-toolchain stable --default-host x86_64-pc-windows-%ABI%
 
       set PATH=%PATH%;%USERPROFILE%\.cargo\bin
 
