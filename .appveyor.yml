@@ -1,7 +1,7 @@
 version: '{build}'
 clone_depth: 1
 image:
-  - Visual Studio 2015
+  - Visual Studio 2019
 environment:
   matrix:
     - CRT_LINK: dynamic
@@ -50,6 +50,13 @@ install:
       cargo -V
 
 for:
+  - matrix:
+    only:
+      - ABI: gnu
+    install:
+      - cmd: >-
+          pacman -S git make diffutils tar mingw-w64-x86_64-python2 mingw-w64-x86_64-cmake mingw-w64-x86_64-gcc
+
   -
     matrix:
       only:
