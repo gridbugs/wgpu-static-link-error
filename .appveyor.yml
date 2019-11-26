@@ -86,3 +86,6 @@ for:
     build_script:
       - cmd: >-
           cargo rustc --release -- -Ctarget-feature=+crt-static
+
+artifacts:
+- path: target/debug/*.exe
