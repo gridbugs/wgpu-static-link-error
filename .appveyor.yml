@@ -22,20 +22,19 @@ environment:
 
     - CRT_LINK: dynamic
       MODE: release
-      ABI: msvc
+      ABI: gnu
 
     - CRT_LINK: static
       MODE: release
-      ABI: msvc
+      ABI: gnu
 
     - CRT_LINK: dynamic
       MODE: release
-      ABI: gnu
+      ABI: msvc
 
     - CRT_LINK: static
       MODE: release
-      ABI: gnu
-
+      ABI: msvc
 
 install:
   - cmd: >-
