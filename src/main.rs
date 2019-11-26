@@ -5,5 +5,4 @@ fn main() {
         backends: wgpu::BackendBit::PRIMARY,
     });
     println!("{:?}", adapter); */
-    println!("Hello, World!");
 }
