@@ -1,7 +1,7 @@
 version: '{build}'
 clone_depth: 1
 image:
-  - Visual Studio 2019
+  - Visual Studio 2015
 environment:
   matrix:
     - CRT_LINK: dynamic
@@ -45,18 +45,15 @@ install:
 
       set PATH=%PATH%;%USERPROFILE%\.cargo\bin
 
+      set PATH=%PATH%;C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64\bin
+
       rustc -V
 
       cargo -V
 
-for:
-  - matrix:
-    only:
-      - ABI: gnu
-    install:
-      - cmd: >-
-          pacman -S git make diffutils tar mingw-w64-x86_64-python2 mingw-w64-x86_64-cmake mingw-w64-x86_64-gcc
+      g++ --version
 
+for:
   -
     matrix:
       only:
