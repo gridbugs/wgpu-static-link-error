@@ -1,0 +1,60 @@
+version: '{build}'
+clone_depth: 1
+image:
+  - Visual Studio 2019
+environment:
+  matrix:
+    - CRT_LINK: dynamic
+      MODE: debug
+    - CRT_LINK: static
+      MODE: debug
+    - CRT_LINK: dynamic
+      MODE: release
+    - CRT_LINK: static
+      MODE: release
+
+install:
+  - cmd: >-
+      appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
+
+      rustup-init -yv --default-toolchain stable --default-host %HOST%
+
+      set PATH=%PATH%;%USERPROFILE%\.cargo\bin
+
+      rustc -V
+
+      cargo -V
+
+for:
+  -
+    matrix:
+      only:
+        - CRT_LINK: dynamic
+          MODE: debug
+    build_script:
+      - cmd: >-
+          cargo rustc
+  -
+    matrix:
+      only:
+        - CRT_LINK: static
+          MODE: debug
+    build_script:
+      - cmd: >-
+          cargo rustc -- -Ctarget-feature=+crt-static
+  -
+    matrix:
+      only:
+        - CRT_LINK: dynamic
+          MODE: release
+    build_script:
+      - cmd: >-
+          cargo rustc --release
+  -
+    matrix:
+      only:
+        - CRT_LINK: static
+          MODE: release
+    build_script:
+      - cmd: >-
+          cargo rustc --release -- -Ctarget-feature=+crt-static
