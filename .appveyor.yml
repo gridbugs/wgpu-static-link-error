@@ -88,7 +88,7 @@ for:
 
 after_build:
   - cmd: >-
-      copy target\debug\wgpu-static-link-error.exe %ABI%-%CRT_LINK%-%MODE%.exe
+      copy target\%MODE%\wgpu-static-link-error.exe %ABI%-%CRT_LINK%-%MODE%.exe
 
 artifacts:
 - path: "%ABI%-%CRT_LINK%-%MODE%.exe"
