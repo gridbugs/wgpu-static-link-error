@@ -88,7 +88,11 @@ for:
 
 after_build:
   - cmd: >-
-      copy target\%MODE%\wgpu-static-link-error.exe %ABI%-%CRT_LINK%-%MODE%.exe
+      mkdir tmp
+
+      copy target\%MODE%\wgpu-static-link-error.exe tmp\%ABI%-%CRT_LINK%-%MODE%.exe
+
+      powershell.exe -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::CreateFromDirectory('tmp', '%ABI%-%CRT_LINK%-%MODE%.zip'); }"
 
 artifacts:
-- path: "%ABI%-%CRT_LINK%-%MODE%.exe"
+- path: "%ABI%-%CRT_LINK%-%MODE%.zip"
